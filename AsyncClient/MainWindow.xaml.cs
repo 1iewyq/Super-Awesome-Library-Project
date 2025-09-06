@@ -1,11 +1,7 @@
 ﻿using DBInterface;
-using DBLib;
 using System;
-using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
