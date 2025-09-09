@@ -61,11 +61,11 @@ namespace DBClient
             }
         }
 
-       /* private void searchButton_Click(object sender, RoutedEventArgs e)
+        private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             SearchDelegate del = foob.SearchByLastName; //At BusinessServerInterface, uncomment the SearchByLastName method if you want to use this line.
             del.BeginInvoke(searchBox.Text, SearchCallback, del);
-        }*/
+        }
 
         private void SearchCallback(IAsyncResult ar)
         {

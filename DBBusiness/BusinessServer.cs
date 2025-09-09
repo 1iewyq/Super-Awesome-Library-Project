@@ -18,7 +18,6 @@ public class BusinessServer : BusinessServerInterface
         return factory.CreateChannel();
     }
 
-    [MethodImpl(MethodImplOptions.Synchronized)]
     private void Log(string logString)
     {
         LogNumber++;
@@ -77,7 +76,7 @@ public class BusinessServer : BusinessServerInterface
             throw;
         }
     }
-
+    
     public async Task<DataStruct> SearchByLastNameAsync(string lastName)
     {
         Log($"SearchByLastNameAsync called with lastName='{lastName}'.");

@@ -14,10 +14,12 @@ public interface BusinessServerInterface
     [OperationContract]
     [FaultContract(typeof(IndexOutOfRangeFault))]
     void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out Bitmap icon);
-
-    /*[OperationContract]
-    DataStruct SearchByLastName(string lastName);*/
-
+    /*
+    [OperationContract]
+    DataStruct SearchByLastName(string lastName);
+    */
+    
     [OperationContract]
     Task<DataStruct> SearchByLastNameAsync(string lastName);
+    
 }
