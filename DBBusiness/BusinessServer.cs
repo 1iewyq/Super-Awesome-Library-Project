@@ -76,36 +76,4 @@ public class BusinessServer : BusinessServerInterface
             throw;
         }
     }
-    
-    public async Task<DataStruct> SearchByLastNameAsync(string lastName)
-    {
-        Log($"SearchByLastNameAsync called with lastName='{lastName}'.");
-        if (!IsValidLastName(lastName))
-        {
-            Log($"Invalid lastName input: '{lastName}'.");
-            throw new ArgumentException("Last name contains invalid characters.");
-        }
-
-        try
-        {
-            var searchTask = Task.Run(() => SearchByLastName(lastName));
-            var timeoutTask = Task.Delay(5000);
-
-            var completedTask = await Task.WhenAny(searchTask, timeoutTask);
-            if (completedTask == timeoutTask)
-            {
-                Log($"SearchByLastNameAsync timed out for lastName='{lastName}'.");
-                throw new TimeoutException("Search operation timed out.");
-            }
-
-            DataStruct result = await searchTask;
-            Log($"SearchByLastNameAsync completed for lastName='{lastName}'.");
-            return result;
-        }
-        catch (Exception ex)
-        {
-            Log($"Exception in SearchByLastNameAsync: {ex.Message}");
-            throw;
-        }
-    }
 }

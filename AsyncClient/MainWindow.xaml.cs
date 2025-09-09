@@ -1,6 +1,8 @@
 ﻿using DBInterface;
+using DBLib;
 using System;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -72,7 +74,7 @@ namespace AsyncClient
                     return;
                 }
 
-                var result = await foob.SearchByLastNameAsync(searchBox.Text);
+                var result = await SearchByLastNameAsync(searchBox.Text);
                 if (result == null)
                 {
                     MessageBox.Show("No entry found for the given last name.");
@@ -85,6 +87,7 @@ namespace AsyncClient
                 pinBox.Text = result.pin.ToString("D4");
                 balBox.Text = result.balance.ToString("C");
                 UserIcon.Source = Imaging.CreateBitmapSourceFromHBitmap(result.icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                result.icon.Dispose();
             }
             catch (Exception ex)
             {
@@ -97,6 +100,21 @@ namespace AsyncClient
                 searchProgressBar.Visibility = Visibility.Collapsed;
                 searchProgressBar.IsIndeterminate = false;
             }
+        }
+
+        private async Task<DataStruct> SearchByLastNameAsync(string lastName)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    return foob.SearchByLastName(lastName);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            });
         }
     }
 }
